@@ -23,7 +23,7 @@
         jam::backEnd = &game;
         std::srand((unsigned int)time(nullptr));
 
-        if (game.Construct("Space Rocks From Space", SCREEN_WIDTH, SCREEN_HEIGHT))
+        if (game.Construct("OLC Code Jam 2021", SCREEN_WIDTH, SCREEN_HEIGHT))
         {
             jam::BitmapFont* kenneyFuture14 = new jam::BitmapFont();
             kenneyFuture14->Construct(game::FONT_SMALL_PATH);
