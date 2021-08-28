@@ -1,0 +1,6 @@
+/Debug
+/.vs
+/*.pdb
+/olc_code_jam_2021/Debug
+/olc_code_jam_2021/*.exe
+/olc_code_jam_2021/*.pdb

@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{e0b05522-af17-4648-a86f-ee0514f95c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src">
+      <UniqueIdentifier>{5bff87d6-9a66-4f46-b8ef-e2b217846871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\jam">
+      <UniqueIdentifier>{b87141b8-a954-4139-b7e1-ca74ee73294c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\jam">
+      <UniqueIdentifier>{af707c73-bea7-4830-bcb7-782548598c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\game">
+      <UniqueIdentifier>{db6126d4-6b21-4036-af4e-94a7d15a32cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game">
+      <UniqueIdentifier>{28510d59-8545-4496-8f02-f05825a646ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\jam\backend">
+      <UniqueIdentifier>{7b2f1d61-7a16-4491-bb0e-2e9e1f8b017a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\jam\backend\pge">
+      <UniqueIdentifier>{88626f8b-855f-4d1b-bc93-28b09d4bd1f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\jam\backend">
+      <UniqueIdentifier>{5bf43e48-b722-427c-b8df-35de0683a044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\jam\backend\pge">
+      <UniqueIdentifier>{fddc6fb4-fe18-4734-938b-90311fe6c2f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game\scene">
+      <UniqueIdentifier>{6ecb9a57-4319-42bd-a02d-8fae45e00282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\game\scene">
+      <UniqueIdentifier>{e5aca52e-9b4e-482a-a788-298399124ae8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\jam\backend\pge\AudioPGE.h">
+      <Filter>Header Files\src\jam\backend\pge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\backend\pge\BackendPGE.h">
+      <Filter>Header Files\src\jam\backend\pge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\backend\pge\ImagePGE.h">
+      <Filter>Header Files\src\jam\backend\pge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\backend\pge\KeyCodesPGE.h">
+      <Filter>Header Files\src\jam\backend\pge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\backend\pge\RendererPGE.h">
+      <Filter>Header Files\src\jam\backend\pge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\backend\pge\ResourceManagerPGE.h">
+      <Filter>Header Files\src\jam\backend\pge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\backend\IBackend.h">
+      <Filter>Header Files\src\jam\backend</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\BitmapFont.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\Collision.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\Configuration.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IAudio.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IEntity.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IFont.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IImage.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IRenderer.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IResourceManager.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\IScene.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\JoystickButton.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\KeyCodes.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\MouseButton.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\Point2D.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\Rect.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\RGB.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\SceneManager.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\Shared.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Version.h">
+      <Filter>Header Files\src\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\scene\SceneGame.h">
+      <Filter>Header Files\src\game\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\scene\SceneMenu.h">
+      <Filter>Header Files\src\game\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\GameAssets.h">
+      <Filter>Header Files\src\game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jam\backend\pge\AudioPGE.cpp">
+      <Filter>Source Files\src\jam\backend\pge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\backend\pge\BackendPGE.cpp">
+      <Filter>Source Files\src\jam\backend\pge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\backend\pge\ImagePGE.cpp">
+      <Filter>Source Files\src\jam\backend\pge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\backend\pge\KeyCodesPGE.cpp">
+      <Filter>Source Files\src\jam\backend\pge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\backend\pge\RendererPGE.cpp">
+      <Filter>Source Files\src\jam\backend\pge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\backend\pge\ResourceManagerPGE.cpp">
+      <Filter>Source Files\src\jam\backend\pge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\backend\IBackend.cpp">
+      <Filter>Source Files\src\jam\backend</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\BitmapFont.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\Collision.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\Configuration.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\IAudio.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\IEntity.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\IImage.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\IRenderer.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\IResourceManager.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\IScene.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\KeyCodes.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\Point2D.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\RGB.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\SceneManager.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\Shared.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\main.cpp">
+      <Filter>Source Files\src\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\scene\SceneGame.cpp">
+      <Filter>Source Files\src\game\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\scene\SceneMenu.cpp">
+      <Filter>Source Files\src\game\scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

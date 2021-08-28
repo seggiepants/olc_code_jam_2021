@@ -1,0 +1,101 @@
+#include "KeyCodes.h"
+
+namespace jam
+{
+    namespace key
+    {
+        uint8_t KEY_A;
+        uint8_t KEY_B;
+        uint8_t KEY_C;
+        uint8_t KEY_D;
+        uint8_t KEY_E;
+        uint8_t KEY_F;
+        uint8_t KEY_G;
+        uint8_t KEY_H;
+        uint8_t KEY_I;
+        uint8_t KEY_J;
+        uint8_t KEY_K;
+        uint8_t KEY_L;
+        uint8_t KEY_M;
+        uint8_t KEY_N;
+        uint8_t KEY_O;
+        uint8_t KEY_P;
+        uint8_t KEY_Q;
+        uint8_t KEY_R;
+        uint8_t KEY_S;
+        uint8_t KEY_T;
+        uint8_t KEY_U;
+        uint8_t KEY_V;
+        uint8_t KEY_W;
+        uint8_t KEY_X;
+        uint8_t KEY_Y;
+        uint8_t KEY_Z;
+        uint8_t KEY_0;
+        uint8_t KEY_1;
+        uint8_t KEY_2;
+        uint8_t KEY_3;
+        uint8_t KEY_4;
+        uint8_t KEY_5;
+        uint8_t KEY_6;
+        uint8_t KEY_7;
+        uint8_t KEY_8;
+        uint8_t KEY_9;
+        uint8_t KEY_SPACE;
+        uint8_t KEY_PERIOD;
+        uint8_t KEY_ENTER;
+        uint8_t KEY_DOWN;
+        uint8_t KEY_LEFT;
+        uint8_t KEY_RIGHT;
+        uint8_t KEY_UP;
+        uint8_t KEY_F1;
+        uint8_t KEY_F2;
+        uint8_t KEY_F3;
+        uint8_t KEY_F4;
+        uint8_t KEY_F5;
+        uint8_t KEY_F6;
+        uint8_t KEY_F7;
+        uint8_t KEY_F8;
+        uint8_t KEY_F9;
+        uint8_t KEY_F10;
+        uint8_t KEY_F11;
+        uint8_t KEY_F12;
+        uint8_t KEY_TAB;
+        uint8_t KEY_LSHIFT;
+        uint8_t KEY_RSHIFT;
+        uint8_t KEY_LCTRL;
+        uint8_t KEY_RCTRL;
+        uint8_t KEY_INS;
+        uint8_t KEY_DEL;
+        uint8_t KEY_HOME;
+        uint8_t KEY_END;
+        uint8_t KEY_PGUP;
+        uint8_t KEY_PGDN;
+        uint8_t KEY_BACKSPACE;
+        uint8_t KEY_ESCAPE;
+        uint8_t KEY_RETURN;
+        uint8_t KEY_PAUSE;
+        uint8_t KEY_SCROLL_LOCK;
+        uint8_t KEY_NP0;
+        uint8_t KEY_NP1;
+        uint8_t KEY_NP2;
+        uint8_t KEY_NP3;
+        uint8_t KEY_NP4;
+        uint8_t KEY_NP5;
+        uint8_t KEY_NP6;
+        uint8_t KEY_NP7;
+        uint8_t KEY_NP8;
+        uint8_t KEY_NP9;
+        uint8_t KEY_NP_MUL;
+        uint8_t KEY_NP_DIV;
+        uint8_t KEY_NP_ADD;
+        uint8_t KEY_NP_SUB;
+        uint8_t KEY_NP_DECIMAL;
+        uint8_t KEY_EQUALS;
+        uint8_t KEY_COMMA;
+        uint8_t KEY_MINUS;
+        uint8_t KEY_CAPS_LOCK;
+
+    }
+}
+
+

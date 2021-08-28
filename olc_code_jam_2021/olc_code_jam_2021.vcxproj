@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{7a581fae-2fd9-420b-8c8d-1768bf762ee9}</ProjectGuid>
+    <RootNamespace>olccodejam2021</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Stewart\Documents\code\olcPixelGameEngine;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Stewart\Documents\code\olcPixelGameEngine;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Stewart\Documents\code\olcPixelGameEngine;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Users\Stewart\Documents\code\olcPixelGameEngine;$(IncludePath)</IncludePath>
+    <OutDir>$(ProjectDir)</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;BACKEND_PGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;BACKEND_PGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;BACKEND_PGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;BACKEND_PGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\game\GameAssets.h" />
+    <ClInclude Include="src\game\scene\SceneGame.h" />
+    <ClInclude Include="src\game\scene\SceneMenu.h" />
+    <ClInclude Include="src\game\Version.h" />
+    <ClInclude Include="src\jam\backend\IBackend.h" />
+    <ClInclude Include="src\jam\backend\pge\AudioPGE.h" />
+    <ClInclude Include="src\jam\backend\pge\BackendPGE.h" />
+    <ClInclude Include="src\jam\backend\pge\ImagePGE.h" />
+    <ClInclude Include="src\jam\backend\pge\KeyCodesPGE.h" />
+    <ClInclude Include="src\jam\backend\pge\RendererPGE.h" />
+    <ClInclude Include="src\jam\backend\pge\ResourceManagerPGE.h" />
+    <ClInclude Include="src\jam\BitmapFont.h" />
+    <ClInclude Include="src\jam\Collision.h" />
+    <ClInclude Include="src\jam\Configuration.h" />
+    <ClInclude Include="src\jam\IAudio.h" />
+    <ClInclude Include="src\jam\IEntity.h" />
+    <ClInclude Include="src\jam\IFont.h" />
+    <ClInclude Include="src\jam\IImage.h" />
+    <ClInclude Include="src\jam\IRenderer.h" />
+    <ClInclude Include="src\jam\IResourceManager.h" />
+    <ClInclude Include="src\jam\IScene.h" />
+    <ClInclude Include="src\jam\JoystickButton.h" />
+    <ClInclude Include="src\jam\KeyCodes.h" />
+    <ClInclude Include="src\jam\MouseButton.h" />
+    <ClInclude Include="src\jam\Point2D.h" />
+    <ClInclude Include="src\jam\Rect.h" />
+    <ClInclude Include="src\jam\RGB.h" />
+    <ClInclude Include="src\jam\SceneManager.h" />
+    <ClInclude Include="src\jam\Shared.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\game\main.cpp" />
+    <ClCompile Include="src\game\scene\SceneGame.cpp" />
+    <ClCompile Include="src\game\scene\SceneMenu.cpp" />
+    <ClCompile Include="src\jam\backend\IBackend.cpp" />
+    <ClCompile Include="src\jam\backend\pge\AudioPGE.cpp" />
+    <ClCompile Include="src\jam\backend\pge\BackendPGE.cpp" />
+    <ClCompile Include="src\jam\backend\pge\ImagePGE.cpp" />
+    <ClCompile Include="src\jam\backend\pge\KeyCodesPGE.cpp" />
+    <ClCompile Include="src\jam\backend\pge\RendererPGE.cpp" />
+    <ClCompile Include="src\jam\backend\pge\ResourceManagerPGE.cpp" />
+    <ClCompile Include="src\jam\BitmapFont.cpp" />
+    <ClCompile Include="src\jam\Collision.cpp" />
+    <ClCompile Include="src\jam\Configuration.cpp" />
+    <ClCompile Include="src\jam\IAudio.cpp" />
+    <ClCompile Include="src\jam\IEntity.cpp" />
+    <ClCompile Include="src\jam\IImage.cpp" />
+    <ClCompile Include="src\jam\IRenderer.cpp" />
+    <ClCompile Include="src\jam\IResourceManager.cpp" />
+    <ClCompile Include="src\jam\IScene.cpp" />
+    <ClCompile Include="src\jam\KeyCodes.cpp" />
+    <ClCompile Include="src\jam\Point2D.cpp" />
+    <ClCompile Include="src\jam\RGB.cpp" />
+    <ClCompile Include="src\jam\SceneManager.cpp" />
+    <ClCompile Include="src\jam\Shared.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
