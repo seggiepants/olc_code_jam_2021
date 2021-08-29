@@ -5,6 +5,7 @@
 #include "../../jam/IAudio.h"
 #include "../../jam/IScene.h"
 #include "../../jam/Point2D.h"
+#include "../../jam/TileMap.h"
 
 namespace game
 {
@@ -47,6 +48,9 @@ namespace game
         bool joyA, joyUp, joyDown, joyLeft, joyRight;
         bool keyA, keyUp, keyDown, keyLeft, keyRight;
         GameState gameState;
+        jam::TileMap* tileMap;
+        int dx;
+        float offset;
     };
 
 }

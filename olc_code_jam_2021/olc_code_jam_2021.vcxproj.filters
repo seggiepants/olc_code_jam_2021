@@ -49,6 +49,21 @@
     <Filter Include="Header Files\src\game\scene">
       <UniqueIdentifier>{e5aca52e-9b4e-482a-a788-298399124ae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src\3rdParty">
+      <UniqueIdentifier>{795535ed-250e-4ce7-813a-9f33862ef7c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\3rdParty\xml">
+      <UniqueIdentifier>{cb8fa037-7179-44cc-b655-73840d0f2bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\3rdParty">
+      <UniqueIdentifier>{aced67da-c65d-4f11-878e-d43ddd7c9587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\3rdParty\xml">
+      <UniqueIdentifier>{bb68ff38-ac74-4507-a7bc-96d464c4dea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\3rdParty\json">
+      <UniqueIdentifier>{0a518669-3c57-42e8-b700-2430fd7aac60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jam\backend\pge\AudioPGE.h">
@@ -138,6 +153,21 @@
     <ClInclude Include="src\game\GameAssets.h">
       <Filter>Header Files\src\game</Filter>
     </ClInclude>
+    <ClInclude Include="src\3rdParty\xml\tinyxml2.h">
+      <Filter>Header Files\src\3rdParty\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\3rdParty\json\json.hpp">
+      <Filter>Header Files\src\3rdParty\json</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\TileMap.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\TileMapLayer.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jam\TileSet.h">
+      <Filter>Header Files\src\jam</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jam\backend\pge\AudioPGE.cpp">
@@ -211,6 +241,18 @@
     </ClCompile>
     <ClCompile Include="src\game\scene\SceneMenu.cpp">
       <Filter>Source Files\src\game\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\3rdParty\xml\tinyxml2.cpp">
+      <Filter>Source Files\src\3rdParty\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\TileMap.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\TileMapLayer.cpp">
+      <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jam\TileSet.cpp">
+      <Filter>Source Files\src\jam</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

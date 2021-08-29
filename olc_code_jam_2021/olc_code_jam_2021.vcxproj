@@ -147,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\3rdParty\json\json.hpp" />
+    <ClInclude Include="src\3rdParty\xml\tinyxml2.h" />
     <ClInclude Include="src\game\GameAssets.h" />
     <ClInclude Include="src\game\scene\SceneGame.h" />
     <ClInclude Include="src\game\scene\SceneMenu.h" />
@@ -176,8 +178,12 @@
     <ClInclude Include="src\jam\RGB.h" />
     <ClInclude Include="src\jam\SceneManager.h" />
     <ClInclude Include="src\jam\Shared.h" />
+    <ClInclude Include="src\jam\TileMap.h" />
+    <ClInclude Include="src\jam\TileMapLayer.h" />
+    <ClInclude Include="src\jam\TileSet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\3rdParty\xml\tinyxml2.cpp" />
     <ClCompile Include="src\game\main.cpp" />
     <ClCompile Include="src\game\scene\SceneGame.cpp" />
     <ClCompile Include="src\game\scene\SceneMenu.cpp" />
@@ -202,6 +208,9 @@
     <ClCompile Include="src\jam\RGB.cpp" />
     <ClCompile Include="src\jam\SceneManager.cpp" />
     <ClCompile Include="src\jam\Shared.cpp" />
+    <ClCompile Include="src\jam\TileMap.cpp" />
+    <ClCompile Include="src\jam\TileMapLayer.cpp" />
+    <ClCompile Include="src\jam\TileSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

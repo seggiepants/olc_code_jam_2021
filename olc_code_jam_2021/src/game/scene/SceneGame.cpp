@@ -11,10 +11,12 @@
 
 namespace game
 {
+	const float SCROLL_SPEED = 100;
 	SceneGame::SceneGame()
 	{
 		this->nextScene = nullptr;
 		this->screenWidth = this->screenHeight = 0;
+		this->tileMap = nullptr;
 	}
 
 	SceneGame::~SceneGame()
@@ -24,6 +26,11 @@ namespace game
 
 	void SceneGame::ClearObjects()
 	{
+		if (this->tileMap != nullptr)
+		{
+			delete this->tileMap;
+		}
+		this->tileMap = nullptr;
 	}
 
 	void SceneGame::Construct(int screenWidth, int screenHeight)
@@ -33,7 +40,13 @@ namespace game
 		this->gameTime = 0.0;
 
 		this->nextScene = (IScene*)this;
-		
+
+		this->tileMap = new jam::TileMap();
+		std::string fileName = jam::MAP_PATH;
+		fileName = fileName + "WonderBoyML_1_1.json";
+		this->offset = 0.0;
+		this->dx = 1;
+		this->tileMap->Construct(fileName);
 		this->NextLevel();
 	}
 
@@ -49,6 +62,7 @@ namespace game
 		this->screenHeight = height;
 
 		render->Clear(bg);
+		this->tileMap->Draw(render, this->offset, 0, 0, 0, 640, 480);
 		float halfW, halfH;
 		jam::IFont* fontSmall = jam::backEnd->ResourceManager()->GetFont(game::FONT_SMALL);
 		halfW = this->screenWidth / 2.0;
@@ -277,6 +291,21 @@ namespace game
 
 	void SceneGame::Update(float dt)
 	{
+		int screenW, screenH;
+		screenW = screenH = 0;
+		this->GetScreenSize(&screenW, &screenH);
 		this->gameTime += dt;
+		this->offset += this->dx * (dt * SCROLL_SPEED);
+		if (this->offset < 0.0)
+		{
+			this->offset = 0.0;
+			this->dx = 1;
+		}
+		else if ((int)this->offset + screenW >= this->tileMap->GetWidth())
+		{
+			this->offset = this->tileMap->GetWidth() - screenW - 1;
+			this->dx = -1;
+		}
+
 	}
 }
