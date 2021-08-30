@@ -61,20 +61,28 @@ namespace jam
 		dy = offsetY % this->tileHeight;
 		i0 = (offsetX - dx) / this->tileWidth;
 		j0 = (offsetY - dy) / this->tileHeight;
-		jam::IImage* image = jam::backEnd->ResourceManager()->GetImage(this->tileSets[0]->ImageKey());
-		for (int y = top; y <= top + height && y < this->height * this->tileHeight; y += this->tileHeight)
+		jam::IImage* image = jam::backEnd->ResourceManager()->GetImage(this->tileSets[0]->ImageKey());		
+		
+		for (int layerNum = 0; layerNum < this->layers.size(); layerNum++)
 		{
-			i = 0;
-			for (int x = left; x <= left + width && x < this->width * this->tileWidth; x += this->tileWidth)
+			j = 0;
+  			for (int y = top; y <= top + height && y < this->height * this->tileHeight; y += this->tileHeight)
 			{
-				int tileID = this->GetTile(0, i + i0, j + j0);
-				int tx, ty;
-				tx = ty = 0;
-				this->layers[0]->GetTilePos(tileID, this->tileSets[0], &tx, &ty);
-				render->DrawSubImage(image, x - dx, y - dy, tx, ty, this->tileWidth, this->tileHeight);
-				i++;
+				i = 0;
+				for (int x = left; x <= left + width && x < this->width * this->tileWidth; x += this->tileWidth)
+				{
+					int tileID = this->GetTile(layerNum, i + i0, j + j0);
+					if (tileID > 0)
+					{
+						int tx, ty;
+						tx = ty = 0;
+						this->layers[layerNum]->GetTilePos(tileID, this->tileSets[0], &tx, &ty);
+						render->DrawSubImage(image, x - dx, y - dy, tx, ty, this->tileWidth, this->tileHeight);
+					}
+					i++;
+				}
+				j++;
 			}
-			j++;
 		}
 	}
 

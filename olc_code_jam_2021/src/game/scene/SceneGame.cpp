@@ -41,9 +41,13 @@ namespace game
 
 		this->nextScene = (IScene*)this;
 
+		if (!jam::backEnd->ResourceManager()->HasImage(jam::IMAGE_PATH + "ship.png"))
+		{
+			jam::backEnd->ResourceManager()->PreloadImage(jam::IMAGE_PATH + "ship.png");
+		}
 		this->tileMap = new jam::TileMap();
 		std::string fileName = jam::MAP_PATH;
-		fileName = fileName + "WonderBoyML_1_1.json";
+		fileName = fileName + "map1.json";
 		this->offset = 0.0;
 		this->dx = 1;
 		this->tileMap->Construct(fileName);
@@ -70,12 +74,14 @@ namespace game
 		std::string msg = "Press <ESCAPE> to";
 		int y;
 		fontSmall->MeasureText(msg, &width, &height);
-		y = ((screenHeight - height) / 2) - height;
+		y = 100; // ((screenHeight - height) / 2) - height;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
 		msg = " return to the menu"; 
 		fontSmall->MeasureText(msg, &width, &height);
 		y += height * 2;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
+
+		render->DrawSubImage(jam::backEnd->ResourceManager()->GetImage(jam::IMAGE_PATH + "ship.png"), 288, 208, 0, 0, 64, 32);
 	}
 
 	void SceneGame::GetScreenSize(int* screenWidth, int* screenHeight)
