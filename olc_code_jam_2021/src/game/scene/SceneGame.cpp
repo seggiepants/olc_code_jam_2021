@@ -17,6 +17,7 @@ namespace game
 		this->nextScene = nullptr;
 		this->screenWidth = this->screenHeight = 0;
 		this->tileMap = nullptr;
+		this->player = nullptr;
 	}
 
 	SceneGame::~SceneGame()
@@ -31,6 +32,12 @@ namespace game
 			delete this->tileMap;
 		}
 		this->tileMap = nullptr;
+
+		if (this->player != nullptr)
+		{
+			delete this->player;
+			this->player = nullptr;
+		}
 	}
 
 	void SceneGame::Construct(int screenWidth, int screenHeight)
@@ -40,11 +47,11 @@ namespace game
 		this->gameTime = 0.0;
 
 		this->nextScene = (IScene*)this;
+		
+		this->player = new Player();
+		this->player->Construct(jam::CONFIG_PATH + "player.json");
+		this->player->SetPosition(screenWidth / 2.0, screenHeight / 2.0);
 
-		if (!jam::backEnd->ResourceManager()->HasImage(jam::IMAGE_PATH + "ship.png"))
-		{
-			jam::backEnd->ResourceManager()->PreloadImage(jam::IMAGE_PATH + "ship.png");
-		}
 		this->tileMap = new jam::TileMap();
 		std::string fileName = jam::MAP_PATH;
 		fileName = fileName + "map1.json";
@@ -81,7 +88,7 @@ namespace game
 		y += height * 2;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
 
-		render->DrawSubImage(jam::backEnd->ResourceManager()->GetImage(jam::IMAGE_PATH + "ship.png"), 288, 208, 0, 0, 64, 32);
+		this->player->Draw(render);
 	}
 
 	void SceneGame::GetScreenSize(int* screenWidth, int* screenHeight)
@@ -312,6 +319,35 @@ namespace game
 			this->offset = this->tileMap->GetWidth() - screenW - 1;
 			this->dx = -1;
 		}
+
+		float dx, dy;
+		if (this->joyUp || this->keyUp)
+		{
+			dy = -1.0;
+		} 
+		else if (this->joyDown || this->keyDown)
+		{
+			dy = 1.0;
+		}
+		else
+		{
+			dy = 0.0;
+		}
+
+		if (this->joyLeft || this->keyLeft)
+		{
+			dx = -1.0;
+		}
+		else if (this->joyRight || this->keyRight)
+		{
+			dx = 1.0;
+		}
+		else
+		{
+			dx = 0.0;
+		}
+		this->player->SetDirection(dx, dy);
+		this->player->Update(this, dt);
 
 	}
 }

@@ -6,6 +6,7 @@
 #include "../../jam/IScene.h"
 #include "../../jam/Point2D.h"
 #include "../../jam/TileMap.h"
+#include "../entity/Player.h"
 
 namespace game
 {
@@ -51,6 +52,7 @@ namespace game
         jam::TileMap* tileMap;
         int dx;
         float offset;
+        game::Player* player;
     };
 
 }

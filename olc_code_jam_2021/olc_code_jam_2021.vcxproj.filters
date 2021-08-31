@@ -64,6 +64,12 @@
     <Filter Include="Header Files\src\3rdParty\json">
       <UniqueIdentifier>{0a518669-3c57-42e8-b700-2430fd7aac60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src\game\entity">
+      <UniqueIdentifier>{4def0aaa-4b22-45ce-bc16-e04316431b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\game\entity">
+      <UniqueIdentifier>{76807f5d-e1d0-4ee4-81c3-56dee931dda1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jam\backend\pge\AudioPGE.h">
@@ -168,6 +174,9 @@
     <ClInclude Include="src\jam\TileSet.h">
       <Filter>Header Files\src\jam</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\entity\Player.h">
+      <Filter>Header Files\src\game\entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jam\backend\pge\AudioPGE.cpp">
@@ -253,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="src\jam\TileSet.cpp">
       <Filter>Source Files\src\jam</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\entity\Player.cpp">
+      <Filter>Source Files\src\game\entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

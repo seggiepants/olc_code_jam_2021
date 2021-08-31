@@ -1,0 +1,75 @@
+{
+	"speed": 200
+	, "shot_delay": 0.1
+	, "image": "ship.png"
+	, "frames":
+	[
+		{
+			"name":	"normal"
+			, "x": 0
+			, "y": 0
+			, "width": 64
+			, "height": 32
+			, "home":
+			{
+				"x": 32
+				, "y": 16
+			}
+			, "hitbox": 
+			{
+				"x": 12
+				, "y": 9
+				, "width": 40
+				, "height": 16
+			}
+			, "muzzle":
+			{
+				"x": 62
+				, "y": 20
+			}
+		}
+		, {
+			"name":	"down"
+			, "x": 64
+			, "y": 0
+			, "width": 64
+			, "height": 32
+			, "home":
+			{
+				"x": 32
+				, "y": 16
+			}
+			, "hitbox": 
+			{
+				"x": 12
+				, "y": 10
+				, "width": 42
+				, "height": 14
+			}
+		}
+		, {
+			"name":	"up"
+			, "x": 128
+			, "y": 0
+			, "width": 64
+			, "height": 32
+			, "home":
+			{
+				"x": 32
+				, "y": 16
+			}
+			, "hitbox": 
+			{
+				"x": 16
+				, "y": 9
+				, "width": 38
+				, "height": 16
+			}
+			, "muzzle":
+			{
+				"x": 62
+				, "y": 20
+			}
+		}
+	]
+}

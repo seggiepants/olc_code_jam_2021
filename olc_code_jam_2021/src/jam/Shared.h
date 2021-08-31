@@ -16,6 +16,7 @@
 namespace jam
 {
 	extern IBackend* backEnd;
+	const std::string CONFIG_PATH = "assets/config/";
 	const std::string FONT_PATH = "assets/font/";
 	const std::string IMAGE_PATH = "assets/image/";
 	const std::string MAP_PATH = "assets/map/";
