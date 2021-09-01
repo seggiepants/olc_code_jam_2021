@@ -177,6 +177,9 @@
     <ClInclude Include="src\game\entity\Player.h">
       <Filter>Header Files\src\game\entity</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\entity\Enemy1.h">
+      <Filter>Header Files\src\game\entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jam\backend\pge\AudioPGE.cpp">
@@ -264,6 +267,9 @@
       <Filter>Source Files\src\jam</Filter>
     </ClCompile>
     <ClCompile Include="src\game\entity\Player.cpp">
+      <Filter>Source Files\src\game\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\entity\Enemy1.cpp">
       <Filter>Source Files\src\game\entity</Filter>
     </ClCompile>
   </ItemGroup>
