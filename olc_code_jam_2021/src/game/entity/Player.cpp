@@ -12,13 +12,13 @@ namespace game
 
 	}
 
-	void Player::Construct(std::string fileName)
+	void Player::Construct(nlohmann::json config)
 	{
-		this->config = jam::Configuration::LoadJsonFile(fileName);
+		this->config = config;
 		std::string imageFile = this->config["image"];
 		if (!jam::backEnd->ResourceManager()->HasImage(jam::IMAGE_PATH + imageFile))
 		{
-			jam::backEnd->ResourceManager()->PreloadImage(jam::IMAGE_PATH + this->config["image"].get<std::string>());
+			jam::backEnd->ResourceManager()->PreloadImage(jam::IMAGE_PATH + imageFile);
 		}
 	}
 

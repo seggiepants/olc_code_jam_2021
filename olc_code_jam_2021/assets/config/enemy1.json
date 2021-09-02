@@ -1,0 +1,104 @@
+{
+	"speed": 150.0
+	, "anim_delay": 0.05
+	, "shot_delay": 0.7
+	, "image": "enemy_1.png"
+	, "frames":
+	[
+		{
+			"name":	"0"
+			, "x": 0
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+			, "hitbox": 
+			{
+				"x": 17
+				, "y": 15
+				, "width": 43
+				, "height": 30
+			}
+			, "muzzle":
+			{
+				"x": 0
+				, "y": 30
+			}
+		}
+		, {
+			"name":	"1"
+			, "x": 64
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+			, "hitbox": 
+			{
+				"x": 7
+				, "y": 16
+				, "width": 52
+				, "height": 25
+			}, "muzzle":
+			{
+				"x": 0
+				, "y": 28
+			}
+		}
+		, {
+			"name":	"2"
+			, "x": 128
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+			, "hitbox": 
+			{
+				"x": 13
+				, "y": 18
+				, "width": 34
+				, "height": 24
+			}
+			, "muzzle":
+			{
+				"x": 0
+				, "y": 31
+			}
+		}
+		, {
+			"name":	"3"
+			, "x": 192
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+			, "hitbox": 
+			{
+				"x": 10
+				, "y": 21
+				, "width": 41
+				, "height": 27
+			}
+			, "muzzle":
+			{
+				"x": 0
+				, "y": 32
+			}
+		}
+	]
+}

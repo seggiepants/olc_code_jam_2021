@@ -18,6 +18,7 @@ namespace game
 		this->screenWidth = this->screenHeight = 0;
 		this->tileMap = nullptr;
 		this->player = nullptr;
+		this->enemy = nullptr;
 	}
 
 	SceneGame::~SceneGame()
@@ -38,6 +39,12 @@ namespace game
 			delete this->player;
 			this->player = nullptr;
 		}
+
+		if (this->enemy != nullptr)
+		{
+			delete this->enemy;
+			this->enemy = nullptr;
+		}
 	}
 
 	void SceneGame::Construct(int screenWidth, int screenHeight)
@@ -49,8 +56,13 @@ namespace game
 		this->nextScene = (IScene*)this;
 		
 		this->player = new Player();
-		this->player->Construct(jam::CONFIG_PATH + "player.json");
+		this->player->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player.json"));
 		this->player->SetPosition(screenWidth / 2.0, screenHeight / 2.0);
+
+		this->enemy = new Enemy1();
+		this->enemy->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "enemy1.json"), nullptr);
+		int y = 32 + (rand() % screenHeight - 64);
+		this->enemy->SetPosition(screenWidth / 2.0, (float) y);
 
 		this->tileMap = new jam::TileMap();
 		std::string fileName = jam::MAP_PATH;
@@ -88,6 +100,7 @@ namespace game
 		y += height * 2;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
 
+		this->enemy->Draw(render);
 		this->player->Draw(render);
 	}
 
@@ -348,6 +361,14 @@ namespace game
 		}
 		this->player->SetDirection(dx, dy);
 		this->player->Update(this, dt);
+
+		if (this->enemy->IsDeleted())
+		{
+			// Respawn for now.			
+			int y = 32 + (rand() % screenHeight - 64);
+			this->enemy->Respawn((float)screenWidth, (float)y);
+		}
+		this->enemy->Update(this, dt);
 
 	}
 }

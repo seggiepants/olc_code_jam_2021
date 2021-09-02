@@ -17,7 +17,7 @@ namespace game
 	public:
 		Player();
 		~Player() override;
-		void Construct(std::string fileName);
+		void Construct(nlohmann::json config);
 		void Draw(jam::IRenderer* render) override;
 		void Update(jam::IScene* scene, float dt) override;
 		bool IsDeleted() override;
