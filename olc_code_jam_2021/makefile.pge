@@ -1,0 +1,42 @@
+CC = g++
+CFLAGS = -O2 -std=c++17 -lstdc++fs -DBACKEND_PGE=1 
+TARGET = olc_code_jam_2021PGE
+OBJDIR = obj
+INCLUDES = -I../../olcPixelGameEngine -I../../freetype-2.10.4/include
+LIBS = -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17 -lfreetype -lasound
+
+SDL_SRC = $(wildcard src/jam/backend/pge/*.cpp)
+BACKEND_SRC = $(wildcard src/jam/backend/*.cpp)
+JAM_SRC = $(wildcard src/jam/*.cpp)
+SCENE_SRC = $(wildcard src/game/scene/*.cpp)
+ENTITY_SRC = $(wildcard src/game/entity/*.cpp)
+GAME_SRC = $(wildcard src/game/*.cpp)
+XML_SRC = $(wildcard src/3rdParty/xml/*.cpp)
+ROOT_SRC = $(wildcard src/*.cpp)
+SRC = $(SDL_SRC) $(BACKEND_SRC) $(JAM_SRC) $(SCENE_SRC) $(ENTITY_SRC) $(GAME_SRC) $(XML_SRC) $(ROOT_SRC)
+
+OBJS = $(subst .cpp,.o,$(SDL_SRC)) \
+$(subst .cpp,.o,$(BACKEND_SRC)) \
+$(subst .cpp,.o,$(JAM_SRC)) \
+$(subst .cpp,.o,$(SCENE_SRC)) \
+$(subst .cpp,.o,$(ENTITY_SRC)) \
+$(subst .cpp,.o,$(GAME_SRC)) \
+$(subst .cpp,.o,$(XML_SRC)) \
+$(subst .cpp,.o,$(ROOT_SRC)) 
+
+.cpp.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(TARGET): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LIBS)
+
+clean:
+	-rm -f src/*.o
+	-rm -f src/game/*.o
+	-rm -f src/game/entity/*.o
+	-rm -f src/game/scene/*.o
+	-rm -f src/jam/*.o
+	-rm -f src/jam/backend/*.o
+	-rm -f src/jam/backend/pge/*.o
+	-rm -f src/jam/backend/sdl2/*.o
+	-rm -f src/3rdParty/xml/*.o

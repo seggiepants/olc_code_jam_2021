@@ -19,6 +19,7 @@ namespace jam
 		int GetHeight() { return this->height; };
 		int GetTileID(int x, int y);
 		void GetTilePos(int tileID, TileSet* tileSet, int* x, int* y);
+		std::string GetName() { return this->name; };
 	protected:
 		std::vector<int> data;
 		int height;

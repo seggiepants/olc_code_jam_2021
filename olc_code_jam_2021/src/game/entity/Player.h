@@ -19,6 +19,7 @@ namespace game
 		~Player() override;
 		void Construct(nlohmann::json config);
 		void Draw(jam::IRenderer* render) override;
+		void GetHitBox(int* x, int* y, int* w, int* h);
 		void Update(jam::IScene* scene, float dt) override;
 		bool IsDeleted() override;
 		void SetDirection(float dx, float dy);

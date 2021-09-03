@@ -20,6 +20,10 @@ namespace jam
 		int GetTile(int layer, int x, int y);
 		int GetWidth() { return this->width * this->tileWidth; };
 		int GetHeight() { return this->height * this->tileHeight; };
+		TileMapLayer* GetLayer(int layerNum) { return this->layers[layerNum]; };
+		int GetLayerCount() { return this->layers.size(); };
+		int GetTileWidth() { return this->tileWidth; };
+		int GetTileHeight() { return this->tileHeight; };
 	private:
 		int tileWidth;
 		int tileHeight;

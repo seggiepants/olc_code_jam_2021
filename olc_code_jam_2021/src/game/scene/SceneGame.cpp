@@ -1,4 +1,5 @@
 #define _USE_MATH_DEFINES
+#include <iostream>
 #include <cmath>
 #include "../../jam/IAudio.h"
 #include "../../jam/IImage.h"
@@ -8,6 +9,7 @@
 #include "../../jam/SceneManager.h"
 #include "../../jam/Shared.h"
 #include "../GameAssets.h"
+#include "../../jam/TileMapLayer.h"
 
 namespace game
 {
@@ -360,7 +362,37 @@ namespace game
 			dx = 0.0;
 		}
 		this->player->SetDirection(dx, dy);
+		float x = this->player->GetX();
+		float y = this->player->GetY();
 		this->player->Update(this, dt);
+		int x1, y1, w1, h1;
+		x1 = y1 = w1 = h1 = 0;
+		this->player->GetHitBox(&x1, &y1, &w1, &h1);		
+		for (int layerNum = 0; layerNum < this->tileMap->GetLayerCount(); layerNum++)
+		{
+			jam::TileMapLayer* layer = this->tileMap->GetLayer(layerNum);
+			if (layer->GetName() == "tiles")
+			{
+				int mapX1 = std::ceil((this->offset + x1) / this->tileMap->GetTileWidth());
+				int mapX2 = std::floor((this->offset + x1 + w1) / this->tileMap->GetTileWidth());
+				int mapY1 = std::ceil(y1 / this->tileMap->GetTileHeight());
+				int mapY2 = std::floor((y1 + h1) / this->tileMap->GetTileHeight());
+				for (int y = mapY1; y <= mapY2; y++)
+				{
+					for (int x = mapX1; x <= mapX2; x++)
+					{
+						if (layer->GetTileID(x, y) != 0)
+						{
+							// Player has hit a wall tile.
+							//std::cout << "Collision at: " << x << ", " << y << std::endl;
+						}
+					}
+				}
+
+			}
+
+		}
+
 
 		if (this->enemy->IsDeleted())
 		{
