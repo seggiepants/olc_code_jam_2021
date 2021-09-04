@@ -483,6 +483,16 @@ namespace game
 			}
 		}
 
+		for (int i = this->enemies.size() - 1; i >= 0; i--)
+		{
+			game::Enemy1* enemy = this->enemies[i];
+			if (enemy->IsDeleted())
+			{
+				this->enemies.erase(this->enemies.begin() + i);
+				delete enemy;
+			}
+		}
+
 		for (int i = this->explosions.size() - 1; i >= 0; i--)
 		{
 			game::Explosion* explosion = this->explosions[i];
