@@ -1,0 +1,86 @@
+{
+	"speed": 250.0
+	, "frame": "yellow"
+	, "image": "bullet.png"
+	, "dx": -1
+	, "dy": 0
+	, "frames":
+	[
+		{
+			"name":	"yellow"
+			, "x": 0
+			, "y": 0
+			, "width": 8
+			, "height": 8
+			, "home":
+			{
+				"x": 4
+				, "y": 4
+			}
+			, "hitbox": 
+			{
+				"x": 0
+				, "y": 0
+				, "width": 8
+				, "height": 8
+			}
+		}
+		, {
+			"name":	"red"
+			, "x": 8
+			, "y": 0
+			, "width": 8
+			, "height": 8
+			, "home":
+			{
+				"x": 4
+				, "y": 4
+			}
+			, "hitbox": 
+			{
+				"x": 0
+				, "y": 0
+				, "width": 8
+				, "height": 8
+			}
+		}
+		, {
+			"name":	"green"
+			, "x": 16
+			, "y": 0
+			, "width": 8
+			, "height": 8
+			, "home":
+			{
+				"x": 4
+				, "y": 4
+			}
+			, "hitbox": 
+			{
+				"x": 0
+				, "y": 0
+				, "width": 8
+				, "height": 8
+			}
+		}
+		, {
+			"name":	"cyan"
+			, "x": 24
+			, "y": 0
+			, "width": 8
+			, "height": 8
+			, "home":
+			{
+				"x": 4
+				, "y": 4
+			}
+			, "hitbox": 
+			{
+				"x": 0
+				, "y": 0
+				, "width": 8
+				, "height": 8
+			}
+		}
+	]
+}

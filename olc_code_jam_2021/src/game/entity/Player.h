@@ -9,6 +9,7 @@
 #include "../../jam/IEntity.h"
 #include "../../jam/IRenderer.h"
 #include "../../jam/IScene.h"
+#include "Bullet.h"
 
 namespace game
 {
@@ -17,17 +18,19 @@ namespace game
 	public:
 		Player();
 		~Player() override;
-		void Construct(nlohmann::json config);
+		void Construct(nlohmann::json config, nlohmann::json bulletConfig);
 		void Draw(jam::IRenderer* render) override;
 		void GetHitBox(int* x, int* y, int* w, int* h);
 		void Update(jam::IScene* scene, float dt) override;
 		bool IsDeleted() override;
 		void SetDirection(float dx, float dy);
 		void SetPosition(float x, float y) override;
+		game::Bullet* Shoot();
 	protected:
 		float dx, dy, shotWait;
 		std::string frame;
 		nlohmann::json config;
+		nlohmann::json bulletConfig;
 	};
 
 }

@@ -8,6 +8,8 @@
 #include "../../jam/TileMap.h"
 #include "../entity/Player.h"
 #include "../entity/Enemy1.h"
+#include "../entity/Explosion.h"
+#include "../entity/Bullet.h"
 
 namespace game
 {
@@ -54,7 +56,13 @@ namespace game
         int dx;
         float offset;
         game::Player* player;
-        game::Enemy1* enemy;
+        std::vector<game::Enemy1*> enemies;
+        std::vector<game::Explosion*> explosions;
+        std::vector<game::Bullet*> playerBullets;
+        std::vector<game::Bullet*> enemyBullets;
+        nlohmann::json enemyBulletConfig;
+        nlohmann::json enemyConfig;
+        nlohmann::json explosionConfig;
     };
 
 }

@@ -12,9 +12,10 @@ namespace game
 
 	}
 
-	void Player::Construct(nlohmann::json config)
+	void Player::Construct(nlohmann::json config, nlohmann::json bulletConfig)
 	{
 		this->config = config;
+		this->bulletConfig = bulletConfig;
 		std::string imageFile = this->config["image"];
 		if (!jam::backEnd->ResourceManager()->HasImage(jam::IMAGE_PATH + imageFile))
 		{
@@ -74,6 +75,9 @@ namespace game
 		
 		this->x += this->dx * moveSpeed * dt;
 		this->y += this->dy * moveSpeed * dt;
+
+		if (this->shotWait > 0)
+			this->shotWait -= dt;
 	}
 
 	bool Player::IsDeleted()
@@ -103,6 +107,38 @@ namespace game
 	{
 		this->x = x;
 		this->y = y;
+	}
+
+	game::Bullet* Player::Shoot()
+	{
+		if (this->shotWait <= 0 && !this->IsDeleted())
+		{
+			this->shotWait = this->config["shot_delay"].get<float>();
+			Bullet* bullet = new Bullet();
+			bullet->Construct(this->bulletConfig);
+
+			nlohmann::json currentFrame;
+			for (int i = 0; i < this->config["frames"].size(); i++)
+			{
+				if (this->config["frames"][i]["name"] == this->frame)
+				{
+					currentFrame = this->config["frames"][i];
+					break;
+				}
+			}
+			if (currentFrame != nullptr)
+			{
+				float muzzelX, muzzelY;
+				muzzelX = (float)currentFrame["muzzle"]["x"].get<int>();
+				muzzelY = (float)currentFrame["muzzle"]["y"].get<int>();
+				float homeX, homeY;
+				homeX = (float)currentFrame["home"]["x"].get<int>();
+				homeY = (float)currentFrame["home"]["y"].get<int>();
+				bullet->SetPosition(this->GetX() + muzzelX - homeX, this->GetY() + muzzelY - homeY);
+			}
+			return bullet;
+		}
+		return nullptr;
 	}
 
 }

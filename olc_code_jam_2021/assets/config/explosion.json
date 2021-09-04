@@ -1,0 +1,56 @@
+{
+	"speed": 0.0
+	, "anim_delay": 0.125
+	, "image": "explosion.png"
+	, "frames":
+	[
+		{
+			"name":	"0"
+			, "x": 0
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+		}
+		, {
+			"name":	"1"
+			, "x": 64
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+		}
+		, {
+			"name":	"2"
+			, "x": 128
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+		}
+		, {
+			"name":	"3"
+			, "x": 192
+			, "y": 0
+			, "width": 64
+			, "height": 64
+			, "home":
+			{
+				"x": 32
+				, "y": 32
+			}
+		}
+	]
+}

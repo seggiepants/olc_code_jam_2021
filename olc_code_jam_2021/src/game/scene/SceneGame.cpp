@@ -20,7 +20,6 @@ namespace game
 		this->screenWidth = this->screenHeight = 0;
 		this->tileMap = nullptr;
 		this->player = nullptr;
-		this->enemy = nullptr;
 	}
 
 	SceneGame::~SceneGame()
@@ -42,11 +41,34 @@ namespace game
 			this->player = nullptr;
 		}
 
-		if (this->enemy != nullptr)
+		for (std::vector<game::Explosion*>::iterator iter = this->explosions.begin(); iter != this->explosions.end(); iter++)
 		{
-			delete this->enemy;
-			this->enemy = nullptr;
+			delete (*iter);
+			*iter = nullptr;
 		}
+		this->explosions.clear();
+
+		for (std::vector<game::Enemy1*>::iterator iter = this->enemies.begin(); iter != this->enemies.end(); iter++)
+		{
+			delete (*iter);
+			*iter = nullptr;
+		}
+		this->enemies.clear();
+
+		for (std::vector<game::Bullet*>::iterator iter = this->playerBullets.begin(); iter != this->playerBullets.end(); iter++)
+		{
+			delete (*iter);
+			*iter = nullptr;
+		}
+		this->playerBullets.clear();
+
+		for (std::vector<game::Bullet*>::iterator iter = this->enemyBullets.begin(); iter != this->enemyBullets.end(); iter++)
+		{
+			delete (*iter);
+			*iter = nullptr;
+		}
+		this->enemyBullets.clear();
+
 	}
 
 	void SceneGame::Construct(int screenWidth, int screenHeight)
@@ -58,14 +80,11 @@ namespace game
 		this->nextScene = (IScene*)this;
 		
 		this->player = new Player();
-		this->player->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player.json"));
+		this->player->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player.json"), jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player_bullet.json"));
 		this->player->SetPosition(screenWidth / 2.0, screenHeight / 2.0);
-
-		this->enemy = new Enemy1();
-		this->enemy->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "enemy1.json"), nullptr);
-		int y = 32 + (rand() % screenHeight - 64);
-		this->enemy->SetPosition(screenWidth / 2.0, (float) y);
-
+		this->enemyConfig = jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "enemy1.json");
+		this->enemyBulletConfig = jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "enemy1_bullet.json");
+		this->explosionConfig = jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "explosion.json");
 		this->tileMap = new jam::TileMap();
 		std::string fileName = jam::MAP_PATH;
 		fileName = fileName + "map1.json";
@@ -97,13 +116,30 @@ namespace game
 		fontSmall->MeasureText(msg, &width, &height);
 		y = 100; // ((screenHeight - height) / 2) - height;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
-		msg = " return to the menu"; 
+		msg = " return to the menu";
 		fontSmall->MeasureText(msg, &width, &height);
 		y += height * 2;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
 
-		this->enemy->Draw(render);
+		for (int i = 0; i < this->explosions.size(); i++)
+		{
+			this->explosions[i]->Draw(render);
+		}
+		for (int i = 0; i < this->playerBullets.size(); i++)
+		{
+			this->playerBullets[i]->Draw(render);
+		}
+
 		this->player->Draw(render);
+
+		for (int i = 0; i < this->enemies.size(); i++)
+		{
+			this->enemies[i]->Draw(render);
+		}
+		for (int i = 0; i < this->enemyBullets.size(); i++)
+		{
+			this->enemyBullets[i]->Draw(render);
+		}
 	}
 
 	void SceneGame::GetScreenSize(int* screenWidth, int* screenHeight)
@@ -365,6 +401,14 @@ namespace game
 		float x = this->player->GetX();
 		float y = this->player->GetY();
 		this->player->Update(this, dt);
+		if (this->joyA || this->keyA)
+		{
+			Bullet* bullet = this->player->Shoot();
+			if (bullet != nullptr)
+			{
+				this->playerBullets.push_back(bullet);
+			}
+		}
 		int x1, y1, w1, h1;
 		x1 = y1 = w1 = h1 = 0;
 		this->player->GetHitBox(&x1, &y1, &w1, &h1);		
@@ -385,6 +429,10 @@ namespace game
 						{
 							// Player has hit a wall tile.
 							//std::cout << "Collision at: " << x << ", " << y << std::endl;
+							Explosion* explosion = new Explosion();
+							explosion->Construct(this->explosionConfig);
+							explosion->SetPosition(this->player->GetX(), this->player->GetY());
+							this->explosions.push_back(explosion);
 						}
 					}
 				}
@@ -393,14 +441,66 @@ namespace game
 
 		}
 
-
-		if (this->enemy->IsDeleted())
+		// Update entities
+		for (std::vector<game::Enemy1*>::iterator iter = this->enemies.begin(); iter != this->enemies.end(); iter++)
 		{
-			// Respawn for now.			
-			int y = 32 + (rand() % screenHeight - 64);
-			this->enemy->Respawn((float)screenWidth, (float)y);
+			(*iter)->Update(this, dt);
 		}
-		this->enemy->Update(this, dt);
 
+		for (std::vector<game::Bullet*>::iterator iter = this->playerBullets.begin(); iter != this->playerBullets.end(); iter++)
+		{
+			(*iter)->Update(this, dt);
+		}
+
+		for (std::vector<game::Bullet*>::iterator iter = this->enemyBullets.begin(); iter != this->enemyBullets.end(); iter++)
+		{
+			(*iter)->Update(this, dt);
+		}
+
+		for (std::vector<game::Explosion*>::iterator iter = this->explosions.begin(); iter != this->explosions.end(); iter++)
+		{
+			(*iter)->Update(this, dt);
+		}
+
+		// Delete old entities.
+		for (int i = this->playerBullets.size() - 1; i >= 0; i--)
+		{
+			game::Bullet* bullet = this->playerBullets[i];
+			if (bullet->IsDeleted())
+			{
+				this->playerBullets.erase(this->playerBullets.begin() + i);
+				delete bullet;
+			}
+		}
+
+		for (int i = this->enemyBullets.size() - 1; i >= 0; i--)
+		{
+			game::Bullet* bullet = this->enemyBullets[i];
+			if (bullet->IsDeleted())
+			{
+				this->enemyBullets.erase(this->enemyBullets.begin() + i);
+				delete bullet;
+			}
+		}
+
+		for (int i = this->explosions.size() - 1; i >= 0; i--)
+		{
+			game::Explosion* explosion = this->explosions[i];
+			if (explosion->IsDeleted())
+			{
+				this->explosions.erase(this->explosions.begin() + i);
+				delete explosion;
+			}
+		}
+
+		if (this->enemies.size() == 0)
+		{
+			// Spawn new enemy if none left.	
+			Enemy1* enemy = new Enemy1();
+			int y = 32 + (rand() % screenHeight - 64);
+			enemy->Construct(this->enemyConfig, nullptr);
+			enemy->SetPosition(screenW, y);
+			this->enemies.push_back(enemy);
+		}
 	}
 }
