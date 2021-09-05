@@ -1,0 +1,33 @@
+{
+	"hitpoints": 50
+	, "speed": 50.0
+	, "ymin": 78
+	, "ymax": 402
+	, "hit_delay": 0.3
+	, "state_duration": 3.0
+	, "shoot_delay": 1.25
+	, "spawn_count": 8
+	, "image": "boss1.png"
+	, "frames":
+	[
+		{
+			"name":	"boss1"
+			, "x": 0
+			, "y": 0
+			, "width": 56
+			, "height": 92
+			, "home":
+			{
+				"x": 28
+				, "y": 46
+			}
+			, "hitbox": 
+			{
+				"x": 23
+				, "y": 15
+				, "width": 23
+				, "height": 59
+			}
+		}
+	]
+}

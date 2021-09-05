@@ -65,13 +65,13 @@ namespace game
 			}
 		}
 
-		float homeX, homeY;
-		homeX = currentFrame["home"]["x"].get<float>();
-		homeY = currentFrame["home"]["y"].get<float>();
-		*x = currentFrame["x"].get<float>() + this->x - homeX;
-		*y = currentFrame["y"].get<float>() + this->y - homeY;
-		*w = currentFrame["width"].get<float>();
-		*h = currentFrame["height"].get<float>();
+		int homeX, homeY;
+		homeX = currentFrame["home"]["x"].get<int>();
+		homeY = currentFrame["home"]["y"].get<int>();
+		*x = this->x - homeX;
+		*y = this->y - homeY;
+		*w = currentFrame["width"].get<int>();
+		*h = currentFrame["height"].get<int>();
 	}
 
 	void Player::Update(jam::IScene* scene, float dt)

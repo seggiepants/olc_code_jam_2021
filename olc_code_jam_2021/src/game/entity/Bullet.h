@@ -20,6 +20,7 @@ namespace game
 		void Update(jam::IScene* scene, float dt) override;
 		bool IsDeleted() override;
 		void SetPosition(float x, float y) override;
+		void Hit() { this->deleted = true; };
 	protected:
 		nlohmann::json config;
 		int frame;

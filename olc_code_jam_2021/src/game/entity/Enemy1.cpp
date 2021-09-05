@@ -39,13 +39,13 @@ namespace game
 			}
 		}
 
-		float homeX, homeY, x, y, w, h;
-		homeX = currentFrame["home"]["x"].get<float>();
-		homeY = currentFrame["home"]["y"].get<float>();
-		x = currentFrame["x"].get<float>();
-		y = currentFrame["y"].get<float>();
-		w = currentFrame["width"].get<float>();
-		h = currentFrame["height"].get<float>();
+		int homeX, homeY, x, y, w, h;
+		homeX = currentFrame["home"]["x"].get<int>();
+		homeY = currentFrame["home"]["y"].get<int>();
+		x = currentFrame["x"].get<int>();
+		y = currentFrame["y"].get<int>();
+		w = currentFrame["width"].get<int>();
+		h = currentFrame["height"].get<int>();
 		render->DrawSubImage(jam::backEnd->ResourceManager()->GetImage(jam::IMAGE_PATH + this->config["image"].get<std::string>()), this->x - homeX, this->y - homeY, x, y, w, h);
 
 	}
@@ -127,8 +127,8 @@ namespace game
 		float homeX, homeY;
 		homeX = currentFrame["home"]["x"].get<int>();
 		homeY = currentFrame["home"]["y"].get<int>();
-		*x = currentFrame["x"].get<int>() + this->x - homeX;
-		*y = currentFrame["y"].get<int>() + this->y - homeY;
+		*x = this->x - homeX;
+		*y = this->y - homeY;
 		*w = currentFrame["width"].get<int>();
 		*h = currentFrame["height"].get<int>();
 	}

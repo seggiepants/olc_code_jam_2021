@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="src\3rdParty\json\json.hpp" />
     <ClInclude Include="src\3rdParty\xml\tinyxml2.h" />
+    <ClInclude Include="src\game\entity\Boss1.h" />
     <ClInclude Include="src\game\entity\Bullet.h" />
     <ClInclude Include="src\game\entity\Enemy1.h" />
     <ClInclude Include="src\game\entity\Explosion.h" />
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\3rdParty\xml\tinyxml2.cpp" />
+    <ClCompile Include="src\game\entity\Boss1.cpp" />
     <ClCompile Include="src\game\entity\Bullet.cpp" />
     <ClCompile Include="src\game\entity\Enemy1.cpp" />
     <ClCompile Include="src\game\entity\Explosion.cpp" />

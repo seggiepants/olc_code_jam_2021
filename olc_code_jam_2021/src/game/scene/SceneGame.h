@@ -10,6 +10,7 @@
 #include "../entity/Enemy1.h"
 #include "../entity/Explosion.h"
 #include "../entity/Bullet.h"
+#include "../entity/Boss1.h"
 
 namespace game
 {
@@ -39,6 +40,7 @@ namespace game
         void MouseMove(int x, int y);
         void MouseClick(jam::MouseButton button, int x, int y);
         void NextLevel();
+        void SpawnEnemyBullet(Bullet* bullet);
         jam::IScene* NextScene();
         void ReturnToMenu();
         void TogglePause();
@@ -59,6 +61,7 @@ namespace game
         std::string message;
         float messageY;
         game::Player* player;
+        game::Boss1* boss;
         std::vector<game::Enemy1*> enemies;
         std::vector<game::Explosion*> explosions;
         std::vector<game::Bullet*> playerBullets;
@@ -66,6 +69,7 @@ namespace game
         nlohmann::json enemyBulletConfig;
         nlohmann::json enemyConfig;
         nlohmann::json explosionConfig;
+        nlohmann::json bossConfig;
     };
 
 }
