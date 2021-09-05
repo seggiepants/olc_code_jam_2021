@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 #include <iostream>
 #include <cmath>
+#include "../../jam/Collision.h"
 #include "../../jam/IAudio.h"
 #include "../../jam/IImage.h"
 #include "../../jam/IResourceManager.h"
@@ -14,6 +15,8 @@
 namespace game
 {
 	const float SCROLL_SPEED = 100;
+	const float MESSAGE_SPEED = 100;
+
 	SceneGame::SceneGame()
 	{
 		this->nextScene = nullptr;
@@ -67,7 +70,7 @@ namespace game
 			delete (*iter);
 			*iter = nullptr;
 		}
-		this->enemyBullets.clear();
+		this->enemyBullets.clear();		
 
 	}
 
@@ -76,8 +79,21 @@ namespace game
 		this->screenWidth = screenWidth;
 		this->screenHeight = screenHeight;
 		this->gameTime = 0.0;
+		this->gameState = GameState::PLAY;
 
 		this->nextScene = (IScene*)this;
+
+		if (!jam::backEnd->ResourceManager()->HasAudio(jam::SOUND_PATH + "explosion.wav"))
+			jam::backEnd->ResourceManager()->PreloadAudio(jam::SOUND_PATH + "explosion.wav");
+		if (!jam::backEnd->ResourceManager()->HasAudio(jam::SOUND_PATH + "win.wav"))
+			jam::backEnd->ResourceManager()->PreloadAudio(jam::SOUND_PATH + "win.wav");
+		if (!jam::backEnd->ResourceManager()->HasAudio(jam::SOUND_PATH + "lose.wav"))
+			jam::backEnd->ResourceManager()->PreloadAudio(jam::SOUND_PATH + "lose.wav");
+		if (!jam::backEnd->ResourceManager()->HasAudio(jam::SOUND_PATH + "zap.wav"))
+			jam::backEnd->ResourceManager()->PreloadAudio(jam::SOUND_PATH + "zap.wav");
+
+
+
 		
 		this->player = new Player();
 		this->player->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player.json"), jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player_bullet.json"));
@@ -111,6 +127,7 @@ namespace game
 		jam::IFont* fontSmall = jam::backEnd->ResourceManager()->GetFont(game::FONT_SMALL);
 		halfW = this->screenWidth / 2.0;
 		halfH = this->screenHeight / 2.0;
+		/*
 		std::string msg = "Press <ESCAPE> to";
 		int y;
 		fontSmall->MeasureText(msg, &width, &height);
@@ -120,6 +137,8 @@ namespace game
 		fontSmall->MeasureText(msg, &width, &height);
 		y += height * 2;
 		fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
+		*/
+
 
 		for (int i = 0; i < this->explosions.size(); i++)
 		{
@@ -139,6 +158,28 @@ namespace game
 		for (int i = 0; i < this->enemyBullets.size(); i++)
 		{
 			this->enemyBullets[i]->Draw(render);
+		}
+
+		if (this->gameState == GameState::PAUSE)
+		{
+			int width, height;
+			std::string msg = "PAUSE";
+			int y;
+			fontSmall->MeasureText(msg, &width, &height);
+			y = ((screenHeight - height) / 2);
+			fontSmall->DrawText(render, msg, (screenWidth - width) / 2, y, fg);
+		}
+		else if (this->gameState == GameState::GAME_OVER)
+		{
+			std::string msg = "GAME OVER";
+			fontSmall->MeasureText(msg, &width, &height);			
+			fontSmall->DrawText(render, msg, (screenWidth - width) / 2, this->messageY, fg);
+		}
+		else if (this->gameState == GameState::NEXT_LEVEL)
+		{
+			std::string msg = "LEVEL COMPLETE";
+			fontSmall->MeasureText(msg, &width, &height);
+			fontSmall->DrawText(render, msg, (screenWidth - width) / 2, this->messageY, fg);
 		}
 	}
 
@@ -358,6 +399,26 @@ namespace game
 		int screenW, screenH;
 		screenW = screenH = 0;
 		this->GetScreenSize(&screenW, &screenH);
+		if (this->gameState == GameState::PAUSE)
+			return;
+
+		if (this->gameState == GameState::NEXT_LEVEL || this->gameState == GameState::GAME_OVER)
+		{
+			this->messageY -= dt * MESSAGE_SPEED;
+			if (this->messageY < screenH / 2)
+			{
+				this->messageY = screenH / 2;
+				if (this->gameState == GameState::GAME_OVER)
+				{
+					this->ReturnToMenu();
+				}
+				else
+				{
+					// ZZZ load next level.
+					this->gameState = GameState::PLAY;
+				}
+			}
+		}
 		this->gameTime += dt;
 		this->offset += this->dx * (dt * SCROLL_SPEED);
 		if (this->offset < 0.0)
@@ -411,39 +472,51 @@ namespace game
 		}
 		int x1, y1, w1, h1;
 		x1 = y1 = w1 = h1 = 0;
-		this->player->GetHitBox(&x1, &y1, &w1, &h1);		
-		for (int layerNum = 0; layerNum < this->tileMap->GetLayerCount(); layerNum++)
+		if (this->player->GetPlayerState() == PLAYER_NORMAL)
 		{
-			jam::TileMapLayer* layer = this->tileMap->GetLayer(layerNum);
-			if (layer->GetName() == "tiles")
+			this->player->GetHitBox(&x1, &y1, &w1, &h1);
+			for (int layerNum = 0; layerNum < this->tileMap->GetLayerCount(); layerNum++)
 			{
-				int mapX1 = std::ceil((this->offset + x1) / this->tileMap->GetTileWidth());
-				int mapX2 = std::floor((this->offset + x1 + w1) / this->tileMap->GetTileWidth());
-				int mapY1 = std::ceil(y1 / this->tileMap->GetTileHeight());
-				int mapY2 = std::floor((y1 + h1) / this->tileMap->GetTileHeight());
-				for (int y = mapY1; y <= mapY2; y++)
+				jam::TileMapLayer* layer = this->tileMap->GetLayer(layerNum);
+				if (layer->GetName() == "tiles")
 				{
-					for (int x = mapX1; x <= mapX2; x++)
+					int mapX1 = std::ceil((this->offset + x1) / this->tileMap->GetTileWidth());
+					int mapX2 = std::floor((this->offset + x1 + w1) / this->tileMap->GetTileWidth());
+					int mapY1 = std::ceil(y1 / this->tileMap->GetTileHeight());
+					int mapY2 = std::floor((y1 + h1) / this->tileMap->GetTileHeight());
+					for (int y = mapY1; y <= mapY2; y++)
 					{
-						if (layer->GetTileID(x, y) != 0)
+						for (int x = mapX1; x <= mapX2; x++)
 						{
-							// Player has hit a wall tile.
-							//std::cout << "Collision at: " << x << ", " << y << std::endl;
-							Explosion* explosion = new Explosion();
-							explosion->Construct(this->explosionConfig);
-							explosion->SetPosition(this->player->GetX(), this->player->GetY());
-							this->explosions.push_back(explosion);
+							if (layer->GetTileID(x, y) != 0)
+							{
+								// Player has hit a wall tile.
+								//std::cout << "Collision at: " << x << ", " << y << std::endl;
+								this->SpawnExplosion(this->player->GetX(), this->player->GetY());
+								this->player->Hit();
+							}
 						}
 					}
+
 				}
 
 			}
-
 		}
 
 		// Update entities
+		jam::Rect rPlayer, rEnemy;
+		this->player->GetHitBox(&rPlayer.x, &rPlayer.y, &rPlayer.w, &rPlayer.h);		
+		
 		for (std::vector<game::Enemy1*>::iterator iter = this->enemies.begin(); iter != this->enemies.end(); iter++)
 		{
+			(*iter)->GetHitBox(&rEnemy.x, &rEnemy.y, &rEnemy.w, &rEnemy.h);
+			if (jam::Collision::Rect_Rect(&rPlayer, &rEnemy))
+			{
+				this->SpawnExplosion(player->GetX(), player->GetY());
+				this->player->Hit();
+				this->SpawnExplosion((*iter)->GetX(), (*iter)->GetY());
+				(*iter)->Hit();
+			}
 			(*iter)->Update(this, dt);
 		}
 
@@ -512,5 +585,21 @@ namespace game
 			enemy->SetPosition(screenW, y);
 			this->enemies.push_back(enemy);
 		}
+		if (this->player->IsDeleted() && this->gameState == GameState::PLAY)
+		{
+			jam::backEnd->ResourceManager()->GetAudio(jam::SOUND_PATH + "lose.wav")->Play();
+			this->messageY = screenH;
+			this->gameState = GameState::GAME_OVER;
+		}
+	}
+
+	void SceneGame::SpawnExplosion(int x, int y)
+	{
+		Explosion* explosion = new Explosion();
+		explosion->Construct(this->explosionConfig);
+		explosion->SetPosition(x, y);
+		this->explosions.push_back(explosion);
+		jam::backEnd->ResourceManager()->GetAudio(jam::SOUND_PATH + "explosion.wav")->Play();
+
 	}
 }

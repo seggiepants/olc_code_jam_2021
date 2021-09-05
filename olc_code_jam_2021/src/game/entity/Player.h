@@ -13,6 +13,9 @@
 
 namespace game
 {
+
+	enum PlayerState { PLAYER_NORMAL, PLAYER_EXPLODING };
+
 	class Player : public jam::IEntity
 	{
 	public:
@@ -25,12 +28,16 @@ namespace game
 		bool IsDeleted() override;
 		void SetDirection(float dx, float dy);
 		void SetPosition(float x, float y) override;
+		PlayerState GetPlayerState() { return this->playerState; };
 		game::Bullet* Shoot();
+		void Hit();
 	protected:
 		float dx, dy, shotWait;
+		PlayerState playerState;
 		std::string frame;
 		nlohmann::json config;
 		nlohmann::json bulletConfig;
+		bool deleted;
 	};
 
 }

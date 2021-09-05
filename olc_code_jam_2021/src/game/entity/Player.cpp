@@ -21,6 +21,13 @@ namespace game
 		{
 			jam::backEnd->ResourceManager()->PreloadImage(jam::IMAGE_PATH + imageFile);
 		}
+		this->deleted = false;
+		this->playerState = PLAYER_NORMAL;
+	}
+
+	void Player::Hit()
+	{
+		this->playerState = PLAYER_EXPLODING;
 	}
 
 	void Player::Draw(jam::IRenderer* render)
@@ -72,17 +79,31 @@ namespace game
 		float moveSpeed;
 
 		moveSpeed = this->config["speed"].get<float>();
-		
-		this->x += this->dx * moveSpeed * dt;
-		this->y += this->dy * moveSpeed * dt;
+		if (this->playerState == PLAYER_NORMAL)
+		{
+			this->x += this->dx * moveSpeed * dt;
+			this->y += this->dy * moveSpeed * dt;
 
-		if (this->shotWait > 0)
-			this->shotWait -= dt;
+			if (this->shotWait > 0)
+				this->shotWait -= dt;
+		}
+		else if (this->playerState == PLAYER_EXPLODING)
+		{
+			int screenW, screenH;
+			scene->GetScreenSize(&screenW, &screenH);
+			this->x += this->dx * moveSpeed * dt;
+			this->y += moveSpeed * dt; // Fall down.
+			if (this->y > screenH)
+			{
+				this->deleted = true;
+
+			}
+		}
 	}
 
 	bool Player::IsDeleted()
 	{
-		return false;
+		return this->deleted;
 	}
 
 	void Player::SetDirection(float dx, float dy)
@@ -135,6 +156,7 @@ namespace game
 				homeX = (float)currentFrame["home"]["x"].get<int>();
 				homeY = (float)currentFrame["home"]["y"].get<int>();
 				bullet->SetPosition(this->GetX() + muzzelX - homeX, this->GetY() + muzzelY - homeY);
+				jam::backEnd->ResourceManager()->GetAudio(jam::SOUND_PATH + "zap.wav")->Play();
 			}
 			return bullet;
 		}

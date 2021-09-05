@@ -45,6 +45,7 @@ namespace game
         void Update(float dt);
     protected:
         void ClearObjects();
+        void SpawnExplosion(int x, int y);
         int screenWidth;
         int screenHeight;
         float gameTime;
@@ -55,6 +56,8 @@ namespace game
         jam::TileMap* tileMap;
         int dx;
         float offset;
+        std::string message;
+        float messageY;
         game::Player* player;
         std::vector<game::Enemy1*> enemies;
         std::vector<game::Explosion*> explosions;

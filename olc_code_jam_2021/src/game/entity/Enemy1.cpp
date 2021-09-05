@@ -110,4 +110,26 @@ namespace game
 		this->isAlive = true;
 		this->animDelay = 0.0;
 	}
+
+	void Enemy1::GetHitBox(int* x, int* y, int* w, int* h)
+	{
+		nlohmann::json currentFrame;
+		std::string frame = std::to_string(this->frame);
+		for (int i = 0; i < this->config["frames"].size(); i++)
+		{
+			if (this->config["frames"][i]["name"] == frame)
+			{
+				currentFrame = this->config["frames"][i];
+				break;
+			}
+		}
+
+		float homeX, homeY;
+		homeX = currentFrame["home"]["x"].get<int>();
+		homeY = currentFrame["home"]["y"].get<int>();
+		*x = currentFrame["x"].get<int>() + this->x - homeX;
+		*y = currentFrame["y"].get<int>() + this->y - homeY;
+		*w = currentFrame["width"].get<int>();
+		*h = currentFrame["height"].get<int>();
+	}
 }

@@ -21,6 +21,8 @@ namespace game
 		bool IsDeleted() override;
 		void SetPosition(float x, float y) override;
 		void Respawn(float x, float y);
+		void GetHitBox(int* x, int* y, int* w, int* h);
+		void Hit() { this->isAlive = false; }
 	protected:
 		bool isAlive;
 		jam::IEntity* parent;
