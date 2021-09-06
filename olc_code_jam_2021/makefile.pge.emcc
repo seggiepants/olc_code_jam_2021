@@ -1,11 +1,12 @@
-CC = g++
-CFLAGS = -O2 -std=c++17 -DBACKEND_PGE=1 
-TARGET = olc_code_jam_2021PGE
+CC = em++ 
+CFLAGS = -g -std=c++17 -DBACKEND_PGE=1 -DKIOSK_MODE=1 -s USE_LIBPNG=1 --no-heap-copy -pthread
+NAME = olc_code_jam_2021_PGE
+TARGET = $(NAME).html
 OBJDIR = obj
-INCLUDES = -I../../olcPixelGameEngine 
-LIBS = -lX11 -lGL -lpthread -lpng -std=c++17 -lfreetype -lasound
+INCLUDES = -I../../olcPixelGameEngine
+LIBS = -s USE_LIBPNG=1 -std=c++17 -s ALLOW_MEMORY_GROWTH=1 -s ASSERTIONS=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 --no-heap-copy -lopenal -pthread -s PTHREAD_POOL_SIZE=4
 
-SDL_SRC = $(wildcard src/jam/backend/pge/*.cpp)
+PGE_SRC = $(wildcard src/jam/backend/pge/*.cpp)
 BACKEND_SRC = $(wildcard src/jam/backend/*.cpp)
 JAM_SRC = $(wildcard src/jam/*.cpp)
 SCENE_SRC = $(wildcard src/game/scene/*.cpp)
@@ -13,9 +14,9 @@ ENTITY_SRC = $(wildcard src/game/entity/*.cpp)
 GAME_SRC = $(wildcard src/game/*.cpp)
 XML_SRC = $(wildcard src/3rdParty/xml/*.cpp)
 ROOT_SRC = $(wildcard src/*.cpp)
-SRC = $(SDL_SRC) $(BACKEND_SRC) $(JAM_SRC) $(SCENE_SRC) $(ENTITY_SRC) $(GAME_SRC) $(XML_SRC) $(ROOT_SRC)
+SRC = $(PGE_SRC) $(BACKEND_SRC) $(JAM_SRC) $(SCENE_SRC) $(ENTITY_SRC) $(GAME_SRC) $(XML_SRC) $(ROOT_SRC)
 
-OBJS = $(subst .cpp,.o,$(SDL_SRC)) \
+OBJS = $(subst .cpp,.o,$(PGE_SRC)) \
 $(subst .cpp,.o,$(BACKEND_SRC)) \
 $(subst .cpp,.o,$(JAM_SRC)) \
 $(subst .cpp,.o,$(SCENE_SRC)) \
@@ -28,10 +29,10 @@ $(subst .cpp,.o,$(ROOT_SRC))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LIBS)
+	$(CC) -o $@ $(OBJS) $(LIBS) --preload-file assets
 
 clean:
-	-rm -f src/*.o
+	-rm -f src/*.o core *.core
 	-rm -f src/game/*.o
 	-rm -f src/game/entity/*.o
 	-rm -f src/game/scene/*.o
@@ -39,4 +40,7 @@ clean:
 	-rm -f src/jam/backend/*.o
 	-rm -f src/jam/backend/pge/*.o
 	-rm -f src/jam/backend/sdl2/*.o
-	-rm -f src/3rdParty/xml/*.o
+	-rm -f $(NAME).html
+	-rm -f $(NAME)*.js
+	-rm -f $(NAME).dat*
+	-rm -f $(NAME).wasm

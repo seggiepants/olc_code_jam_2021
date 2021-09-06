@@ -23,6 +23,7 @@ namespace game
 		this->screenWidth = this->screenHeight = 0;
 		this->tileMap = nullptr;
 		this->player = nullptr;
+		this->boss = nullptr;
 	}
 
 	SceneGame::~SceneGame()
@@ -82,10 +83,14 @@ namespace game
 
 	void SceneGame::Construct(int screenWidth, int screenHeight)
 	{
+		this->ClearObjects();
 		this->screenWidth = screenWidth;
 		this->screenHeight = screenHeight;
 		this->gameTime = 0.0;
 		this->gameState = GameState::PLAY;
+		
+		this->joyA = this->joyUp = this->joyDown = this->joyLeft = this->joyRight = false;
+		this->keyA = this->keyUp = this->keyDown = this->keyLeft = this->keyRight = false;
 
 		this->nextScene = (IScene*)this;
 
@@ -103,10 +108,9 @@ namespace game
 			jam::backEnd->ResourceManager()->PreloadImage(jam::IMAGE_PATH + "boss1_shield.png");
 
 
-		this->boss = nullptr;
 		this->player = new Player();
 		this->player->Construct(jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player.json"), jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "player_bullet.json"));
-		this->player->SetPosition(screenWidth / 2.0, screenHeight / 2.0);
+		this->player->SetPosition((float)(screenWidth / 4.0), (float)(screenHeight / 2.0));
 		this->enemyConfig = jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "enemy1.json");
 		this->enemyBulletConfig = jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "enemy1_bullet.json");
 		this->explosionConfig = jam::Configuration::LoadJsonFile(jam::CONFIG_PATH + "explosion.json");
@@ -125,18 +129,17 @@ namespace game
 		int width, height;
 		jam::rgb bg(0, 0, 0, 255);
 		jam::rgb fg(255, 255, 255, 255);
-
 		render->Clear(bg);
 		render->GetScreenSize(&width, &height);
 		this->screenWidth = width;
 		this->screenHeight = height;
 
 		render->Clear(bg);
-		this->tileMap->Draw(render, this->offset, 0, 0, 0, 640, 480);
+		this->tileMap->Draw(render, (int)this->offset, 0, 0, 0, 640, 480);
 		float halfW, halfH;
 		jam::IFont* fontSmall = jam::backEnd->ResourceManager()->GetFont(game::FONT_SMALL);
-		halfW = this->screenWidth / 2.0;
-		halfH = this->screenHeight / 2.0;
+		halfW = (float)(this->screenWidth / 2.0);
+		halfH = (float)(this->screenHeight / 2.0);
 		/*
 		std::string msg = "Press <ESCAPE> to";
 		int y;
@@ -186,13 +189,13 @@ namespace game
 		else if (this->gameState == GameState::GAME_OVER)
 		{
 			fontSmall->MeasureText(this->message, &width, &height);			
-			fontSmall->DrawText(render, this->message, (screenWidth - width) / 2, this->messageY, fg);
+			fontSmall->DrawText(render, this->message, (int)((screenWidth - width) / 2), (int)this->messageY, fg);
 		}
 		else if (this->gameState == GameState::NEXT_LEVEL)
 		{
 			std::string msg = "LEVEL COMPLETE";
 			fontSmall->MeasureText(msg, &width, &height);
-			fontSmall->DrawText(render, msg, (screenWidth - width) / 2, this->messageY, fg);
+			fontSmall->DrawText(render, msg, (int)((screenWidth - width) / 2), (int)this->messageY, fg);
 		}
 
 		//// debug boxes /////////////////
@@ -445,7 +448,7 @@ namespace game
 			this->messageY -= dt * MESSAGE_SPEED;
 			if (this->messageY < screenH / 2)
 			{
-				this->messageY = screenH / 2;
+				this->messageY = (float)(screenH / 2);
 				if (this->gameState == GameState::GAME_OVER)
 				{
 					this->ReturnToMenu();
@@ -461,7 +464,7 @@ namespace game
 		this->offset += this->dx * (dt * SCROLL_SPEED);
 		if ((int)this->offset + screenW >= this->tileMap->GetWidth())
 		{
-			this->offset = this->tileMap->GetWidth() - screenW - 1;
+			this->offset = (float)(this->tileMap->GetWidth() - screenW - 1);
 			this->dx = 0;
 			this->boss = new Boss1();
 			this->boss->Construct(this->bossConfig, this->screenWidth, this->screenHeight);
@@ -470,15 +473,14 @@ namespace game
 		{
 			this->gameState = GameState::GAME_OVER;
 			this->message = "YOU WIN!";
-			this->messageY = screenH;
+			this->messageY = (float)screenH;
 			for (int i = 0; i < 6; i++)
 			{
 				int dx = (rand() % 32) - 16;
 				int dy = (rand() % 32) - 16;
-				this->SpawnExplosion(this->boss->GetX() + dx, this->boss->GetY() + dy);
+				this->SpawnExplosion((int)(this->boss->GetX() + dx), (int)(this->boss->GetY() + dy));
 			}
 		}
-
 		float dx, dy;
 		if (this->joyUp || this->keyUp)
 		{
@@ -527,10 +529,10 @@ namespace game
 				jam::TileMapLayer* layer = this->tileMap->GetLayer(layerNum);
 				if (layer->GetName() == "tiles")
 				{
-					int mapX1 = std::ceil((this->offset + x1) / this->tileMap->GetTileWidth());
-					int mapX2 = std::floor((this->offset + x1 + w1) / this->tileMap->GetTileWidth());
-					int mapY1 = std::ceil(y1 / this->tileMap->GetTileHeight());
-					int mapY2 = std::floor((y1 + h1) / this->tileMap->GetTileHeight());
+					int mapX1 = (int)std::ceil((this->offset + x1) / this->tileMap->GetTileWidth());
+					int mapX2 = (int)std::floor((this->offset + x1 + w1) / this->tileMap->GetTileWidth());
+					int mapY1 = (int)std::ceil(y1 / this->tileMap->GetTileHeight());
+					int mapY2 = (int)std::floor((y1 + h1) / this->tileMap->GetTileHeight());
 					for (int y = mapY1; y <= mapY2; y++)
 					{
 						for (int x = mapX1; x <= mapX2; x++)
@@ -538,8 +540,7 @@ namespace game
 							if (layer->GetTileID(x, y) != 0)
 							{
 								// Player has hit a wall tile.
-								//std::cout << "Collision at: " << x << ", " << y << std::endl;
-								this->SpawnExplosion(this->player->GetX(), this->player->GetY());
+								this->SpawnExplosion((int)this->player->GetX(), (int)this->player->GetY());
 								this->player->Hit();
 							}
 						}
@@ -549,29 +550,26 @@ namespace game
 
 			}
 		}
-
 		// Update entities
 		jam::Rect rPlayer, rEnemy;
 		this->player->GetHitBox(&rPlayer.x, &rPlayer.y, &rPlayer.w, &rPlayer.h);		
-
 		if (this->boss != nullptr)
 		{
 			this->boss->Update(this, dt);
 		}
-		
+	
 		for (std::vector<game::Enemy1*>::iterator iter = this->enemies.begin(); iter != this->enemies.end(); iter++)
 		{
 			(*iter)->GetHitBox(&rEnemy.x, &rEnemy.y, &rEnemy.w, &rEnemy.h);
 			if (jam::Collision::Rect_Rect(&rPlayer, &rEnemy))
 			{
-				this->SpawnExplosion(player->GetX(), player->GetY());
+				this->SpawnExplosion((int)player->GetX(), (int)player->GetY());
 				this->player->Hit();
-				this->SpawnExplosion((*iter)->GetX(), (*iter)->GetY());
+				this->SpawnExplosion((int)(*iter)->GetX(), (int)(*iter)->GetY());
 				(*iter)->Hit();
 			}
 			(*iter)->Update(this, dt);
 		}
-
 		jam::Point2Df bulletPoint;
 		for (std::vector<game::Bullet*>::iterator iter = this->playerBullets.begin(); iter != this->playerBullets.end(); iter++)
 		{
@@ -585,7 +583,7 @@ namespace game
 					if (jam::Collision::Point_Rect(&bulletPoint, &rEnemy))
 					{
 						(*enemy)->Hit();
-						this->SpawnExplosion((*enemy)->GetX(), (*enemy)->GetY());
+						this->SpawnExplosion((int)(*enemy)->GetX(), (int)(*enemy)->GetY());
 						(*iter)->Hit();
 						break;
 					}
@@ -614,7 +612,7 @@ namespace game
 			if (jam::Collision::Point_Rect(&bulletPoint, &rPlayer))
 			{
 				this->player->Hit();
-				this->SpawnExplosion(this->player->GetX(), this->player->GetY());
+				this->SpawnExplosion((int)this->player->GetX(), (int)this->player->GetY());
 				(*iter)->Hit();
 			}
 			
@@ -627,7 +625,7 @@ namespace game
 		}
 
 		// Delete old entities.
-		for (int i = this->playerBullets.size() - 1; i >= 0; i--)
+		for (int i = (int)this->playerBullets.size() - 1; i >= 0; i--)
 		{
 			game::Bullet* bullet = this->playerBullets[i];
 			if (bullet->IsDeleted())
@@ -637,7 +635,7 @@ namespace game
 			}
 		}
 
-		for (int i = this->enemyBullets.size() - 1; i >= 0; i--)
+		for (int i = (int)this->enemyBullets.size() - 1; i >= 0; i--)
 		{
 			game::Bullet* bullet = this->enemyBullets[i];
 			if (bullet->IsDeleted())
@@ -647,7 +645,7 @@ namespace game
 			}
 		}
 
-		for (int i = this->enemies.size() - 1; i >= 0; i--)
+		for (int i = (int)this->enemies.size() - 1; i >= 0; i--)
 		{
 			game::Enemy1* enemy = this->enemies[i];
 			if (enemy->IsDeleted())
@@ -657,7 +655,7 @@ namespace game
 			}
 		}
 
-		for (int i = this->explosions.size() - 1; i >= 0; i--)
+		for (int i = (int)this->explosions.size() - 1; i >= 0; i--)
 		{
 			game::Explosion* explosion = this->explosions[i];
 			if (explosion->IsDeleted())
@@ -667,19 +665,19 @@ namespace game
 			}
 		}
 
-		if (this->enemies.size() == 0)
+		if ((int)this->enemies.size() == 0)
 		{
 			// Spawn new enemy if none left.	
 			Enemy1* enemy = new Enemy1();
 			int y = 32 + (rand() % screenHeight - 64);
 			enemy->Construct(this->enemyConfig, nullptr);
-			enemy->SetPosition(screenW, y);
+			enemy->SetPosition((float)screenW, (float)y);
 			this->enemies.push_back(enemy);
 		}
 		if (this->player->IsDeleted() && this->gameState == GameState::PLAY)
 		{
 			jam::backEnd->ResourceManager()->GetAudio(jam::SOUND_PATH + "lose.wav")->Play();
-			this->messageY = screenH;
+			this->messageY = (float)screenH;
 			this->gameState = GameState::GAME_OVER;
 			this->message = "GAME OVER";
 		}
@@ -689,7 +687,7 @@ namespace game
 	{
 		Explosion* explosion = new Explosion();
 		explosion->Construct(this->explosionConfig);
-		explosion->SetPosition(x, y);
+		explosion->SetPosition((float)x, (float)y);
 		this->explosions.push_back(explosion);
 		jam::backEnd->ResourceManager()->GetAudio(jam::SOUND_PATH + "explosion.wav")->Play();
 	}

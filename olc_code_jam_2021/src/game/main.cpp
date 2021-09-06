@@ -5,6 +5,9 @@
 #ifdef BACKEND_PGE
 #include "../jam/backend/pge/BackendPGE.h"
 #endif
+#ifdef BACKEND_SDL2
+#include "../jam/backend/sdl2/BackendSDL2.h"
+#endif
 
 #include "../jam/SceneManager.h"
 #include "../game/scene/SceneGame.h"
@@ -19,6 +22,9 @@
     {
 #ifdef BACKEND_PGE
         jam::BackendPGE game;
+#endif
+#ifdef BACKEND_SDL2
+        jam::BackendSDL2 game;
 #endif
         jam::backEnd = &game;
         std::srand((unsigned int)time(nullptr));

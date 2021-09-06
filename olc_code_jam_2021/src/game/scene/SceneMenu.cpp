@@ -36,6 +36,13 @@ namespace game
 	void SceneMenu::Construct(int screenWidth, int screenHeight)
 	{
 		const int numStars = 4000;
+
+		this->joyA = this->oldJoyA = false;
+		this->joyUp = this->oldJoyUp = false;
+		this->joyDown = this->oldJoyDown = false;
+		this->joyMoveTimeout = 0;
+		
+
 		this->menuText->clear();
 		this->menuText->push_back(std::pair<std::string, jam::Rect>("PLAY", { 0, 0, 0, 0 }));
 #ifndef KIOSK_MODE
@@ -58,14 +65,14 @@ namespace game
 		jam::IFont* fontLarge = jam::backEnd->ResourceManager()->GetFont(game::FONT_LARGE);
 		jam::IFont* fontSmall = jam::backEnd->ResourceManager()->GetFont(game::FONT_SMALL);
 		render->GetScreenSize(&this->screenWidth, &this->screenHeight);
-		halfW = this->screenWidth / 2.0;
-		halfH = this->screenHeight / 2.0;
+		halfW = (float)(this->screenWidth / 2.0);
+		halfH = (float)(this->screenHeight / 2.0);
 		color.r = color.g = color.b = color.a = 255;
 		std::string msg = "OLC CODE JAM";
 		fontLarge->MeasureText(msg, &width, &height);
 		float sx, sy;
 		sx = (float)((this->screenWidth - width) / 2);
-		sy = 32 + height;
+		sy = (float)32 + height;
 		fontLarge->DrawText(render, msg, (int)sx, (int)sy, color);
 		msg = "2021";
 		fontLarge->MeasureText(msg, &width, &height);
@@ -95,19 +102,19 @@ namespace game
 		white.r = white.g = white.b = white.a = 255;
 		for (std::vector<std::pair<std::string, jam::Rect>>::iterator menu = this->menuText->begin(); menu != this->menuText->end(); menu++)
 		{
-			menu->second.x = sx - border;
-			menu->second.y = sy - border;
+			menu->second.x = (int)sx - border;
+			menu->second.y = (int)sy - border;
 			menu->second.w = maxWidth + (2 * border);
 			menu->second.h = maxHeight + (2 * border);
 			if (idx == this->menuIndex)
 			{
 				render->FillRect(menu->second.x, menu->second.y, menu->second.x + menu->second.w, menu->second.y + menu->second.h, highlight);
-				fontSmall->DrawText(render, menu->first, sx, sy + maxHeight, white);
+				fontSmall->DrawText(render, menu->first, (int)sx, (int)sy + maxHeight, white);
 			}
 			else
 			{
 				render->FillRect(menu->second.x, menu->second.y, menu->second.x + menu->second.w, menu->second.y + menu->second.h, black);
-				fontSmall->DrawText(render, menu->first, sx, sy + maxHeight, white);
+				fontSmall->DrawText(render, menu->first, (int)sx, (int)sy + maxHeight, white);
 			}
 			sy += maxHeight + border * 3; // two for this item + one for the top of the next.
 			idx++;
@@ -173,8 +180,8 @@ namespace game
 				if (this->oldJoyDown != this->joyDown)
 				{
 					this->menuIndex++;
-					if (this->menuIndex >= this->menuText->size())
-						this->menuIndex = this->menuText->size() - 1;
+					if (this->menuIndex >= (int) this->menuText->size())
+						this->menuIndex = (int) this->menuText->size() - 1;
 				}
 			}
 
@@ -197,10 +204,10 @@ namespace game
 				else if (dy > 0)
 				{
 					this->menuIndex++;
-					if (this->menuIndex >= this->menuText->size())
-						this->menuIndex = this->menuText->size() - 1;
+					if (this->menuIndex >= (int)this->menuText->size())
+						this->menuIndex = (int)this->menuText->size() - 1;
 				}
-				this->joyMoveTimeout = JOY_MOVE_DELAY;
+				this->joyMoveTimeout = (float)JOY_MOVE_DELAY;
 			}
 		}
 	}
@@ -222,9 +229,9 @@ namespace game
 		else if (key == jam::key::KEY_DOWN)
 		{
 			this->menuIndex++;
-			if (this->menuIndex >= this->menuText->size())
+			if (this->menuIndex >= (int)this->menuText->size())
 			{
-				this->menuIndex = this->menuText->size() - 1;
+				this->menuIndex = (int)this->menuText->size() - 1;
 			}
 		}
 		else if (key == jam::key::KEY_ENTER || key == jam::key::KEY_SPACE || key == jam::key::KEY_RETURN)
@@ -269,6 +276,7 @@ namespace game
 				{
 					this->menuIndex = index;
 					this->MenuSelect((*item).first);
+					break;
 				}
 				index++;
 			}
@@ -284,7 +292,6 @@ namespace game
 	void SceneMenu::Update(float dt)
 	{
 		const float starSpeed = 10.0;
-		float x, y, z;
 		if (this->joyMoveTimeout > 0)
 		{
 			this->joyMoveTimeout -= dt;

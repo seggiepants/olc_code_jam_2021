@@ -1,11 +1,12 @@
-CC = g++
-CFLAGS = -O2 -std=c++17 -DBACKEND_PGE=1 
-TARGET = olc_code_jam_2021PGE
+CC = em++
+CFLAGS = -std=c++17 -O2 -DBACKEND_SDL2=1 -DKIOSK_MODE=1 -s USE_SDL=2 -s USE_SDL_MIXER=2 -s USE_SDL_TTF=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='["png"]'
+NAME = olc_code_jam_2021_SDL2
+TARGET = $(NAME).html
 OBJDIR = obj
-INCLUDES = -I../../olcPixelGameEngine 
-LIBS = -lX11 -lGL -lpthread -lpng -std=c++17 -lfreetype -lasound
+INCLUDES =
+LIBS = -s USE_SDL=2 -s USE_SDL_MIXER=2 -s USE_SDL_TTF=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='["png"]' -s ALLOW_MEMORY_GROWTH=1
 
-SDL_SRC = $(wildcard src/jam/backend/pge/*.cpp)
+SDL_SRC = $(wildcard src/jam/backend/sdl2/*.cpp)
 BACKEND_SRC = $(wildcard src/jam/backend/*.cpp)
 JAM_SRC = $(wildcard src/jam/*.cpp)
 SCENE_SRC = $(wildcard src/game/scene/*.cpp)
@@ -28,10 +29,10 @@ $(subst .cpp,.o,$(ROOT_SRC))
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LIBS)
+	$(CC) -o $@ $(OBJS) $(LIBS) --preload-file assets 
 
 clean:
-	-rm -f src/*.o
+	-rm -f src/*.o core *.core
 	-rm -f src/game/*.o
 	-rm -f src/game/entity/*.o
 	-rm -f src/game/scene/*.o
@@ -39,4 +40,8 @@ clean:
 	-rm -f src/jam/backend/*.o
 	-rm -f src/jam/backend/pge/*.o
 	-rm -f src/jam/backend/sdl2/*.o
-	-rm -f src/3rdParty/xml/*.o
+	-rm -f src/3rdParty/xml/*.o	
+	-rm -f $(NAME).html
+	-rm -f $(NAME)*.js
+	-rm -f $(NAME).dat*
+	-rm -f $(NAME).wasm
